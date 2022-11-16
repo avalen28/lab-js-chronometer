@@ -6,9 +6,7 @@ class Chronometer {
 
   start(printTimeCallback) {
     this.intervalId = setInterval(() => {
-      //console.log("antes", this.currentTime);
       this.currentTime = this.currentTime + 1;
-      //console.log("despues", this.currentTime);
       if (printTimeCallback) {
         printTimeCallback();
       }
@@ -18,25 +16,31 @@ class Chronometer {
     const minutes = Math.floor(this.currentTime / 60);
     return minutes;
   }
-
   getSeconds() {
     const seconds = Math.floor(this.currentTime % 60);
     return seconds;
   }
-
   computeTwoDigitNumber(value) {
-    // ... your code goes here
+    console.log(value);
+    let stringValue = value.toString();
+    if (stringValue.length > 2) {
+      return stringValue.slice(0, 2);
+    } else if (stringValue.length === 2) {
+      return stringValue;
+    } else {
+      return `0${stringValue}`;
+    }
   }
-
   stop() {
-    // ... your code goes here
+    clearInterval(this.intervalId);
   }
-
   reset() {
     this.currentTime = 0;
   }
-
   split() {
-    // ... your code goes here
+    const finalMinutes = this.computeTwoDigitNumber(this.getMinutes());
+    const finalSeconds = this.computeTwoDigitNumber(this.getSeconds());
+    console.log(finalMinutes, finalSeconds);
+    return `${finalMinutes}:${finalSeconds}`;
   }
 }
